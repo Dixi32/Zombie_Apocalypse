@@ -69,7 +69,8 @@
   - Test persistence across page reloads for language and theme
   - _Requirements: 2.4, 2.5, 3.4, 3.5, 7.1, 7.2, 7.3_
 
-- [ ] 9. Write comprehensive Playwright tests
+- [x] 9. Write comprehensive Playwright tests
+
 
   - Create e2e.spec.ts with test for homepage loading with correct English heading
   - Write navigation tests to verify each menu item displays correct heading
