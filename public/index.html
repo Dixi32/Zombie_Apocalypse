@@ -65,6 +65,13 @@
             font-size: 1.5rem;
             font-weight: bold;
             color: var(--accent-color);
+            text-decoration: none;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo:hover {
+            opacity: 0.8;
         }
 
         .nav-menu {
@@ -195,7 +202,7 @@
 <body>
     <header class="header">
         <div class="header-content">
-            <div class="logo">Z-Survive</div>
+            <a href="#/" class="logo" data-route="home">Z-Survive</a>
             
             <nav class="navigation">
                 <ul class="nav-menu">

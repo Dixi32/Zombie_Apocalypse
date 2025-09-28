@@ -97,6 +97,29 @@ test.describe('Z-Survive Website E2E Tests', () => {
       // Verify URL hash is correct (should be #/ or empty)
       expect(page.url()).toMatch(/(#\/|#)$/);
     });
+
+    test('should navigate to homepage when clicking Z-Survive logo', async ({ page }) => {
+      // Start from a different page
+      await page.goto('/#/guides');
+      
+      // Wait for the guides page to load
+      await page.waitForSelector('h1');
+      let heading = await page.locator('h1').textContent();
+      expect(heading).toBe('Survival Guides');
+      
+      // Click on the Z-Survive logo
+      await page.click('a.logo[data-route="home"]');
+      
+      // Wait for navigation and content update
+      await page.waitForSelector('h1');
+      
+      // Verify we're back on the homepage
+      heading = await page.locator('h1').textContent();
+      expect(heading).toBe('Welcome to Z-Survive');
+      
+      // Verify URL hash is correct
+      expect(page.url()).toMatch(/(#\/|#)$/);
+    });
   });
 
   test.describe('Deep Link Test', () => {
