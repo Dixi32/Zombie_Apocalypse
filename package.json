@@ -1,0 +1,19 @@
+{
+  "name": "z-survive-website",
+  "version": "1.0.0",
+  "description": "A minimal educational single-page application about surviving a zombie apocalypse",
+  "main": "public/js/main.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "http-server public -p 3000",
+    "test": "playwright test"
+  },
+  "keywords": ["zombie", "survival", "education", "typescript"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@playwright/test": "^1.40.0",
+    "http-server": "^14.1.0"
+  }
+}
