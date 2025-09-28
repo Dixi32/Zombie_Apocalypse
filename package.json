@@ -5,7 +5,8 @@
   "main": "public/js/main.js",
   "scripts": {
     "build": "tsc",
-    "dev": "live-server public --port=3000 --open=/",
+    "dev": "live-server public --port=3000 --no-browser",
+    "dev:open": "live-server public --port=3000 --open=/",
     "test": "playwright test",
     "test:unit": "playwright test tests/unit/",
     "test:e2e": "playwright test tests/e2e/"
