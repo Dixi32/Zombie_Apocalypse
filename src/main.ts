@@ -4,7 +4,7 @@
  */
 
 import { initRouter, getCurrentRoute } from './router.js';
-import { initI18n, getLanguage, setLanguage, getText, Language } from './i18n.js';
+import { initI18n, setLanguage, getText, Language } from './i18n.js';
 import { initTheme, toggleTheme, getTheme } from './theme.js';
 import { render } from './pages.js';
 
@@ -40,9 +40,9 @@ function testLocalStorage(): boolean {
     console.error('localStorage is not available:', error);
     
     if (error instanceof DOMException) {
-      if (error.code === DOMException.SECURITY_ERR) {
+      if (error.name === 'SecurityError') {
         console.error('localStorage access denied (security error)');
-      } else if (error.code === DOMException.QUOTA_EXCEEDED_ERR) {
+      } else if (error.name === 'QuotaExceededError') {
         console.error('localStorage quota exceeded');
       }
     }
@@ -177,7 +177,6 @@ function setupEventListeners(): void {
             setLanguage(newLanguage);
             updateView();
             updateNavigationText();
-            console.log(`Language changed to: ${newLanguage}`);
           } else {
             console.error(`Invalid language selection: ${newLanguage}`);
             // Reset to current language
@@ -207,7 +206,6 @@ function setupEventListeners(): void {
         try {
           toggleTheme();
           updateNavigationText(); // Update theme toggle text
-          console.log('Theme toggled successfully');
         } catch (error) {
           console.error('Error toggling theme:', error);
         }
@@ -227,20 +225,15 @@ function setupEventListeners(): void {
  */
 function init(): void {
   try {
-    console.log('Initializing Z-Survive application...');
-    
     // Test localStorage availability
     const localStorageAvailable = testLocalStorage();
     if (!localStorageAvailable) {
       console.warn('localStorage is not available - preferences will not persist across page reloads');
-    } else {
-      console.log('localStorage is available and working');
     }
     
     // Initialize all systems with error handling
     try {
       currentLanguage = initI18n();
-      console.log(`Language system initialized with: ${currentLanguage}`);
     } catch (error) {
       console.error('Error initializing i18n system:', error);
       currentLanguage = 'en'; // Fallback to English
@@ -248,7 +241,6 @@ function init(): void {
     
     try {
       initTheme();
-      console.log(`Theme system initialized with: ${getTheme()}`);
     } catch (error) {
       console.error('Error initializing theme system:', error);
     }
@@ -259,7 +251,6 @@ function init(): void {
     // Initialize router with route change handler
     try {
       initRouter(handleRouteChange);
-      console.log('Router initialized successfully');
     } catch (error) {
       console.error('Error initializing router:', error);
       // Try to render home page as fallback
@@ -268,8 +259,6 @@ function init(): void {
     
     // Update navigation text with current language
     updateNavigationText();
-    
-    console.log('Z-Survive application initialized successfully');
   } catch (error) {
     console.error('Critical error initializing application:', error);
     

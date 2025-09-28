@@ -266,7 +266,6 @@ export function getLanguage(): Language {
       return stored;
     }
 
-    // Log invalid stored value for debugging
     if (stored !== null) {
       console.warn(
         `Invalid language value in localStorage: "${stored}", falling back to default`
@@ -274,8 +273,6 @@ export function getLanguage(): Language {
     }
   } catch (error) {
     console.error('Error reading language from localStorage:', error);
-    // Log additional context for debugging
-    console.error('localStorage may be unavailable or corrupted');
   }
 
   return 'en'; // Default to English
@@ -293,7 +290,6 @@ export function setLanguage(lang: Language): void {
 
   try {
     localStorage.setItem('lang', lang);
-    console.log(`Language preference saved: ${lang}`);
   } catch (error) {
     console.error('Error saving language to localStorage:', error);
 
