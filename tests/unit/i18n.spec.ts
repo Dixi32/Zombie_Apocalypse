@@ -1,5 +1,18 @@
 import { test, expect } from '@playwright/test';
 
+// Extend Window interface to include our custom i18n functions
+declare global {
+  interface Window {
+    i18n: {
+      getText: (lang: string, key: string) => string;
+      getLanguage: () => string;
+      setLanguage: (lang: string) => void;
+      initI18n: () => string;
+      translations: any;
+    };
+  }
+}
+
 test.describe('i18n Unit Tests', () => {
   test('can load i18n module', async ({ page }) => {
     // Go to the homepage first to ensure server is working
