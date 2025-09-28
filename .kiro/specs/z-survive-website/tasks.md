@@ -16,8 +16,6 @@
 
 - [x] 3. Implement translation dictionary and i18n system
 
-
-
   - Create i18n.ts with complete translation dictionary as TypeScript constant
   - Write getText() function for key-based translation lookup
   - Implement getLanguage() and setLanguage() functions with localStorage persistence
@@ -26,10 +24,6 @@
 
 - [x] 4. Build hash-based routing system
 
-
-
-
-
   - Create router.ts with parseHash() function to extract route from URL
   - Implement getCurrentRoute() with fallback to homepage for unknown hashes
   - Write initRouter() to set up hashchange event listeners
@@ -37,7 +31,7 @@
   - Write unit tests for routing logic
   - _Requirements: 1.2, 1.3, 1.4_
 
-- [ ] 5. Create theme management system
+- [x] 5. Create theme management system
 
   - Write theme.ts with setTheme() function using data-theme attribute
   - Implement toggleTheme() to switch between dark and light themes
