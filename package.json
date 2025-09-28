@@ -6,14 +6,21 @@
   "scripts": {
     "build": "tsc",
     "dev": "http-server public -p 3000",
-    "test": "playwright test"
+    "test": "playwright test",
+    "test:unit": "playwright test tests/*.unit.spec.ts",
+    "test:e2e": "playwright test tests/e2e.spec.ts"
   },
-  "keywords": ["zombie", "survival", "education", "typescript"],
+  "keywords": [
+    "zombie",
+    "survival",
+    "education",
+    "typescript"
+  ],
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^5.0.0",
-    "@playwright/test": "^1.40.0",
-    "http-server": "^14.1.0"
+    "@playwright/test": "^1.55.1",
+    "http-server": "^14.1.0",
+    "typescript": "^5.0.0"
   }
 }
