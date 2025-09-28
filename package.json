@@ -23,6 +23,6 @@
     "@types/node": "24.5.2",
     "http-server": "14.1.0",
     "live-server": "1.2.2",
-    "typescript": "5.0.0"
+    "typescript": "^5.0.0"
   }
 }
