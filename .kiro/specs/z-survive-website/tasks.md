@@ -33,14 +33,23 @@
 
 - [x] 5. Create theme management system
 
+
+
   - Write theme.ts with setTheme() function using data-theme attribute
   - Implement toggleTheme() to switch between dark and light themes
   - Add getTheme() function with localStorage persistence and dark default
   - Write initTheme() to apply saved theme on page load
   - Write unit tests for theme functions
   - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5_
+-
+
+
 
 - [ ] 6. Implement page rendering system
+
+
+
+
 
   - Create pages.ts with render functions for each view (home, guides, entertainment, about)
   - Write renderHome() with welcome content and navigation links using i18n keys
