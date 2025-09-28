@@ -19,10 +19,10 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@playwright/test": "^1.55.1",
-    "@types/node": "^24.5.2",
-    "http-server": "^14.1.0",
-    "live-server": "^1.2.2",
-    "typescript": "^5.0.0"
+    "@playwright/test": "1.55.1",
+    "@types/node": "24.5.2",
+    "http-server": "14.1.0",
+    "live-server": "1.2.2",
+    "typescript": "5.0.0"
   }
 }
