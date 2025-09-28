@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z-Survive - Zombie Apocalypse Survival Guide</title>
+    <style>
+        :root[data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --nav-bg: #2d2d2d;
+            --nav-hover: #404040;
+            --button-bg: #333333;
+            --button-hover: #555555;
+            --border-color: #444444;
+            --accent-color: #ff6b6b;
+            --secondary-color: #4ecdc4;
+        }
+
+        :root[data-theme="light"] {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --nav-bg: #f5f5f5;
+            --nav-hover: #e0e0e0;
+            --button-bg: #e9e9e9;
+            --button-hover: #d0d0d0;
+            --border-color: #cccccc;
+            --accent-color: #d63031;
+            --secondary-color: #00b894;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .header {
+            background-color: var(--nav-bg);
+            border-bottom: 2px solid var(--border-color);
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 0.5rem;
+        }
+
+        .nav-item {
+            margin: 0;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: var(--text-color);
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background-color: var(--nav-hover);
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .language-selector {
+            background-color: var(--button-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .language-selector:hover {
+            background-color: var(--button-hover);
+        }
+
+        .theme-toggle {
+            background-color: var(--button-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--button-hover);
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .app-container {
+            min-height: 60vh;
+        }
+
+        h1 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        h3 {
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer {
+            background-color: var(--nav-bg);
+            border-top: 2px solid var(--border-color);
+            padding: 1rem 0;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        /* Responsive adjustments for desktop */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .main-content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">Z-Survive</div>
+            
+            <nav class="navigation">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#/" class="nav-link active" data-route="home">Homepage</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#/guides" class="nav-link" data-route="guides">Survival Guides</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#/entertainment" class="nav-link" data-route="entertainment">Entertainment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#/about" class="nav-link" data-route="about">About the Project</a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="controls">
+                <select class="language-selector" id="languageSelector">
+                    <option value="en">EN</option>
+                    <option value="cs">CS</option>
+                </select>
+                
+                <button class="theme-toggle" id="themeToggle">🌙 Dark</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div id="app" class="app-container">
+            <!-- Dynamic content will be rendered here -->
+            <h1>Welcome to Z-Survive</h1>
+            <p>Your comprehensive guide to surviving the zombie apocalypse.</p>
+            <p>Navigate through our sections to learn essential survival skills, discover entertainment content, and learn more about this project.</p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 Z-Survive - Educational Content Only</p>
+    </footer>
+
+    <!-- TypeScript compiled JavaScript modules will be loaded here -->
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
