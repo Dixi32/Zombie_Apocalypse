@@ -24,7 +24,11 @@
   - Write unit tests for translation functions
   - _Requirements: 2.6, 2.1, 2.4, 2.5_
 
-- [ ] 4. Build hash-based routing system
+- [x] 4. Build hash-based routing system
+
+
+
+
 
   - Create router.ts with parseHash() function to extract route from URL
   - Implement getCurrentRoute() with fallback to homepage for unknown hashes
