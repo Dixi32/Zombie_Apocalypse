@@ -4,11 +4,29 @@
 
 import { test, expect } from '@playwright/test';
 
+// Extend Window interface to include our custom functions
+declare global {
+  interface Window {
+    setTheme: (theme: string) => void;
+    getTheme: () => string;
+    toggleTheme: () => void;
+    initTheme: () => void;
+    mockStorage: {
+      data: Record<string, string>;
+      getItem: (key: string) => string | null;
+      setItem: (key: string, value: string) => void;
+      clear: () => void;
+    };
+  }
+}
+
 test.describe('Theme Management System', () => {
   test.beforeEach(async ({ page }) => {
     // Navigate to a simple data URL
-    await page.goto('data:text/html,<!DOCTYPE html><html><head><title>Test</title></head><body></body></html>');
-    
+    await page.goto(
+      'data:text/html,<!DOCTYPE html><html><head><title>Test</title></head><body></body></html>'
+    );
+
     // Add the theme functions with localStorage mock
     await page.addScriptTag({
       content: `
@@ -69,61 +87,69 @@ test.describe('Theme Management System', () => {
         window.toggleTheme = toggleTheme;
         window.initTheme = initTheme;
         window.mockStorage = mockStorage;
-      `
+      `,
     });
   });
 
   test.describe('setTheme', () => {
     test('should set data-theme attribute to dark', async ({ page }) => {
       await page.evaluate(() => window.setTheme('dark'));
-      
+
       const dataTheme = await page.getAttribute('html', 'data-theme');
       expect(dataTheme).toBe('dark');
     });
 
     test('should set data-theme attribute to light', async ({ page }) => {
       await page.evaluate(() => window.setTheme('light'));
-      
+
       const dataTheme = await page.getAttribute('html', 'data-theme');
       expect(dataTheme).toBe('light');
     });
   });
 
   test.describe('getTheme', () => {
-    test('should return dark as default theme when localStorage is empty', async ({ page }) => {
+    test('should return dark as default theme when localStorage is empty', async ({
+      page,
+    }) => {
       // Clear mock storage
       await page.evaluate(() => window.mockStorage.clear());
-      
+
       const theme = await page.evaluate(() => window.getTheme());
       expect(theme).toBe('dark');
     });
 
-    test('should return saved theme from localStorage when valid', async ({ page }) => {
+    test('should return saved theme from localStorage when valid', async ({
+      page,
+    }) => {
       await page.evaluate(() => {
         window.mockStorage.clear();
         window.mockStorage.setItem('theme', 'light');
       });
-      
+
       const theme = await page.evaluate(() => window.getTheme());
       expect(theme).toBe('light');
     });
 
-    test('should return dark theme when saved theme is valid dark', async ({ page }) => {
+    test('should return dark theme when saved theme is valid dark', async ({
+      page,
+    }) => {
       await page.evaluate(() => {
         window.mockStorage.clear();
         window.mockStorage.setItem('theme', 'dark');
       });
-      
+
       const theme = await page.evaluate(() => window.getTheme());
       expect(theme).toBe('dark');
     });
 
-    test('should return default theme when localStorage contains invalid value', async ({ page }) => {
+    test('should return default theme when localStorage contains invalid value', async ({
+      page,
+    }) => {
       await page.evaluate(() => {
         window.mockStorage.clear();
         window.mockStorage.setItem('theme', 'invalid');
       });
-      
+
       const theme = await page.evaluate(() => window.getTheme());
       expect(theme).toBe('dark');
     });
@@ -136,10 +162,12 @@ test.describe('Theme Management System', () => {
         window.mockStorage.setItem('theme', 'dark');
         window.toggleTheme();
       });
-      
+
       const dataTheme = await page.getAttribute('html', 'data-theme');
-      const savedTheme = await page.evaluate(() => window.mockStorage.getItem('theme'));
-      
+      const savedTheme = await page.evaluate(() =>
+        window.mockStorage.getItem('theme')
+      );
+
       expect(dataTheme).toBe('light');
       expect(savedTheme).toBe('light');
     });
@@ -150,57 +178,69 @@ test.describe('Theme Management System', () => {
         window.mockStorage.setItem('theme', 'light');
         window.toggleTheme();
       });
-      
+
       const dataTheme = await page.getAttribute('html', 'data-theme');
-      const savedTheme = await page.evaluate(() => window.mockStorage.getItem('theme'));
-      
+      const savedTheme = await page.evaluate(() =>
+        window.mockStorage.getItem('theme')
+      );
+
       expect(dataTheme).toBe('dark');
       expect(savedTheme).toBe('dark');
     });
 
-    test('should toggle from default dark to light when no theme is saved', async ({ page }) => {
+    test('should toggle from default dark to light when no theme is saved', async ({
+      page,
+    }) => {
       await page.evaluate(() => {
         window.mockStorage.clear();
         window.toggleTheme();
       });
-      
+
       const dataTheme = await page.getAttribute('html', 'data-theme');
-      const savedTheme = await page.evaluate(() => window.mockStorage.getItem('theme'));
-      
+      const savedTheme = await page.evaluate(() =>
+        window.mockStorage.getItem('theme')
+      );
+
       expect(dataTheme).toBe('light');
       expect(savedTheme).toBe('light');
     });
   });
 
   test.describe('initTheme', () => {
-    test('should apply default dark theme when no theme is saved', async ({ page }) => {
+    test('should apply default dark theme when no theme is saved', async ({
+      page,
+    }) => {
       await page.evaluate(() => {
         window.mockStorage.clear();
         window.initTheme();
       });
-      
+
       const dataTheme = await page.getAttribute('html', 'data-theme');
       expect(dataTheme).toBe('dark');
     });
 
-    test('should apply saved light theme from localStorage', async ({ page }) => {
+    test('should apply saved light theme from localStorage', async ({
+      page,
+    }) => {
       await page.evaluate(() => {
         window.mockStorage.clear();
         window.mockStorage.setItem('theme', 'light');
         window.initTheme();
       });
-      
+
       const dataTheme = await page.getAttribute('html', 'data-theme');
       expect(dataTheme).toBe('light');
     });
 
-    test('should apply saved dark theme from localStorage', async ({ page }) => {
+    test('should apply saved dark theme from localStorage', async ({
+      page,
+    }) => {
       await page.evaluate(() => {
         window.mockStorage.clear();
         window.mockStorage.setItem('theme', 'dark');
         window.initTheme();
       });
-      
+
       const dataTheme = await page.getAttribute('html', 'data-theme');
       expect(dataTheme).toBe('dark');
     });
