@@ -25,12 +25,37 @@ export function toggleTheme(): void {
   const newTheme: Theme = currentTheme === 'dark' ? 'light' : 'dark';
   
   setTheme(newTheme);
+  saveTheme(newTheme);
+}
+
+/**
+ * Save theme preference to localStorage with comprehensive error handling
+ * @param theme - The theme to save
+ */
+function saveTheme(theme: Theme): void {
+  // Validate input parameter
+  if (theme !== 'dark' && theme !== 'light') {
+    console.error(`Invalid theme parameter: "${theme}", must be 'dark' or 'light'`);
+    return;
+  }
   
-  // Save the new theme to localStorage
   try {
-    localStorage.setItem(THEME_STORAGE_KEY, newTheme);
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
+    console.log(`Theme preference saved: ${theme}`);
   } catch (error) {
-    console.warn('Failed to save theme to localStorage:', error);
+    console.error('Failed to save theme to localStorage:', error);
+    
+    // Provide specific error context
+    if (error instanceof DOMException) {
+      if (error.code === DOMException.QUOTA_EXCEEDED_ERR) {
+        console.error('localStorage quota exceeded - unable to save theme preference');
+      } else if (error.code === DOMException.SECURITY_ERR) {
+        console.error('localStorage access denied - unable to save theme preference');
+      }
+    }
+    
+    // Continue execution - theme will still work for current session
+    console.warn('Theme preference will not persist across page reloads');
   }
 }
 
@@ -41,11 +66,20 @@ export function toggleTheme(): void {
 export function getTheme(): Theme {
   try {
     const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+    
+    // Validate stored value
     if (savedTheme === 'dark' || savedTheme === 'light') {
       return savedTheme;
     }
+    
+    // Log invalid stored value for debugging
+    if (savedTheme !== null) {
+      console.warn(`Invalid theme value in localStorage: "${savedTheme}", falling back to default`);
+    }
   } catch (error) {
-    console.warn('Failed to read theme from localStorage:', error);
+    console.error('Failed to read theme from localStorage:', error);
+    // Log additional context for debugging
+    console.error('localStorage may be unavailable or corrupted');
   }
   
   return DEFAULT_THEME;

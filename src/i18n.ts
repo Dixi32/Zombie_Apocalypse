@@ -210,11 +210,20 @@ export function getText(lang: Language, key: TranslationKey): string {
 export function getLanguage(): Language {
   try {
     const stored = localStorage.getItem('lang');
+    
+    // Validate stored value
     if (stored === 'en' || stored === 'cs') {
       return stored;
     }
+    
+    // Log invalid stored value for debugging
+    if (stored !== null) {
+      console.warn(`Invalid language value in localStorage: "${stored}", falling back to default`);
+    }
   } catch (error) {
-    console.warn('Error reading language from localStorage:', error);
+    console.error('Error reading language from localStorage:', error);
+    // Log additional context for debugging
+    console.error('localStorage may be unavailable or corrupted');
   }
   
   return 'en'; // Default to English
@@ -222,10 +231,29 @@ export function getLanguage(): Language {
 
 // Set language and save to localStorage
 export function setLanguage(lang: Language): void {
+  // Validate input parameter
+  if (lang !== 'en' && lang !== 'cs') {
+    console.error(`Invalid language parameter: "${lang}", must be 'en' or 'cs'`);
+    return;
+  }
+  
   try {
     localStorage.setItem('lang', lang);
+    console.log(`Language preference saved: ${lang}`);
   } catch (error) {
-    console.warn('Error saving language to localStorage:', error);
+    console.error('Error saving language to localStorage:', error);
+    
+    // Provide specific error context
+    if (error instanceof DOMException) {
+      if (error.code === DOMException.QUOTA_EXCEEDED_ERR) {
+        console.error('localStorage quota exceeded - unable to save language preference');
+      } else if (error.code === DOMException.SECURITY_ERR) {
+        console.error('localStorage access denied - unable to save language preference');
+      }
+    }
+    
+    // Continue execution - language will still work for current session
+    console.warn('Language preference will not persist across page reloads');
   }
 }
 

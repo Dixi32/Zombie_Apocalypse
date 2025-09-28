@@ -33,24 +33,16 @@
 
 - [x] 5. Create theme management system
 
-
-
   - Write theme.ts with setTheme() function using data-theme attribute
   - Implement toggleTheme() to switch between dark and light themes
   - Add getTheme() function with localStorage persistence and dark default
   - Write initTheme() to apply saved theme on page load
   - Write unit tests for theme functions
   - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5_
+
 -
 
-
-
 - [x] 6. Implement page rendering system
-
-
-
-
-
 
   - Create pages.ts with render functions for each view (home, guides, entertainment, about)
   - Write renderHome() with welcome content and navigation links using i18n keys
@@ -60,11 +52,7 @@
   - Add main render() dispatcher function that calls appropriate view renderer
   - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 6.1, 6.2, 6.3, 6.4_
 
-- [ ] 7. Create main application bootstrap
-
-
-
-
+- [x] 7. Create main application bootstrap
 
   - Write main.ts with init() function to initialize all systems on DOMContentLoaded
   - Implement handleRouteChange() to respond to navigation events
@@ -73,7 +61,7 @@
   - Wire together router, i18n, theme, and pages modules
   - _Requirements: 9.3, 2.3, 3.2_
 
-- [ ] 8. Add localStorage persistence and error handling
+- [x] 8. Add localStorage persistence and error handling
 
   - Implement try-catch blocks around all localStorage operations
   - Add fallback values for missing or invalid stored preferences
