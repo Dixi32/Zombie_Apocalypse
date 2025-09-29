@@ -39,3 +39,5 @@ This project is automatically deployed to GitHub Pages using GitHub Actions when
 ## 📄 License
 
 MIT License
+
+<!-- Deployment trigger -->
