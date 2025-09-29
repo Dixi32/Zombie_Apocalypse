@@ -5,9 +5,8 @@
   "main": "public/js/main.js",
   "scripts": {
     "build": "tsc",
-    "dev": "live-server public --port=3000 --no-browser",
     "dev:open": "live-server public --port=3000 --open=/",
-    "prepare": "npm run build"
+    "dev": "live-server public --port=3000 --no-browser"
   },
   "keywords": [
     "zombie",
