@@ -6,10 +6,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "live-server public --port=3000 --no-browser",
-    "dev:open": "live-server public --port=3000 --open=/",
-    "test": "playwright test",
-    "test:unit": "playwright test tests/unit/",
-    "test:e2e": "playwright test tests/e2e/"
+    "dev:open": "live-server public --port=3000 --open=/"
   },
   "keywords": [
     "zombie",
@@ -20,8 +17,6 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@playwright/test": "1.55.1",
-    "@types/node": "24.5.2",
     "http-server": "14.1.0",
     "live-server": "1.2.2",
     "typescript": "^5.0.0"
